@@ -1,26 +1,155 @@
 @import "tailwindcss";
 
+/* ============================================================
+   DESIGN TOKENS — change the whole site's look from here
+   ============================================================ */
+@theme {
+  /* Surfaces: near-black with a cool blue cast */
+  --color-ink-950: #060709;
+  --color-ink-900: #0b0d11;
+  --color-ink-850: #10131a;
+  --color-ink-800: #161a23;
+  --color-ink-700: #222834;
+  --color-ink-600: #333b4a;
+
+  /* Text */
+  --color-mist-400: #7b8496;
+  --color-mist-300: #99a1b2;
+  --color-mist-200: #c3c9d5;
+  --color-mist-100: #e9ecf2;
+
+  /* Brand accents */
+  --color-accent: #5eead4;
+  --color-accent-deep: #2dd4bf;
+  --color-violet-soft: #8b93f8;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-caret: caret 1.05s step-end infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+@keyframes caret {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+  --nav-h: 68px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  /* Anchor links land below the fixed navbar instead of under it */
+  scroll-padding-top: calc(var(--nav-h) + 12px);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-ink-950);
+  color: var(--color-mist-200);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-accent) 30%, transparent);
+  color: #fff;
+}
+
+/* Keyboard focus only — never a ring on mouse click */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Slim custom scrollbar (desktop) */
+@media (pointer: fine) {
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-ink-950); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-ink-700);
+    border-radius: 999px;
+    border: 3px solid var(--color-ink-950);
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-ink-600); }
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+@utility text-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-mist-100) 0%,
+    var(--color-accent) 48%,
+    var(--color-violet-soft) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Hairline border that brightens on hover, used on cards */
+@utility card-surface {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--color-ink-850) 92%, transparent),
+    color-mix(in oklab, var(--color-ink-900) 92%, transparent)
+  );
+  border: 1px solid var(--color-ink-700);
+  backdrop-filter: blur(8px);
+}
+
+/* Soft radial glow used behind hero + section headings */
+@utility glow-radial {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--color-accent) 22%, transparent),
+    transparent
+  );
+}
+
+/* Faint dotted grid backdrop */
+@utility grid-backdrop {
+  background-image:
+    radial-gradient(circle at 1px 1px, var(--color-ink-800) 1px, transparent 0);
+  background-size: 34px 34px;
+}
+
+/* Edge-fade mask for marquees */
+@utility mask-edges {
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* ============================================================
+   MOTION SAFETY — honour the OS "reduce motion" setting
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
