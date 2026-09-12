@@ -76,16 +76,19 @@ export function Nav() {
           aria-label="Main"
           className="mx-auto flex h-full max-w-6xl items-center justify-between px-5 sm:px-8"
         >
-          {/* Wordmark */}
-          <a
-            href="#home"
-            className="group flex items-center gap-2.5 font-mono text-sm font-medium text-mist-100"
-          >
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-accent to-violet-soft text-[13px] font-bold text-ink-950 transition-transform duration-300 group-hover:scale-110">
-              HJ
-            </span>
-            <span className="hidden sm:inline">{site.name}</span>
-          </a>
+          {/* Wordmark. The left and right sides are both flex-1, so the links
+              in the middle stay exactly centred whatever each side contains. */}
+          <div className="flex flex-1 items-center">
+            <a
+              href="#home"
+              className="group flex items-center gap-2.5 font-mono text-sm font-medium text-mist-100"
+            >
+              <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-accent to-violet-soft text-[13px] font-bold text-ink-950 transition-transform duration-300 group-hover:scale-110">
+                HJ
+              </span>
+              <span className="hidden sm:inline">{site.name}</span>
+            </a>
+          </div>
 
           {/* Desktop links */}
           <ul className="hidden items-center gap-1 md:flex">
@@ -117,16 +120,7 @@ export function Nav() {
             })}
           </ul>
 
-          <div className="flex items-center gap-2">
-            <a
-              href={site.resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden rounded-full border border-ink-700 px-4 py-2 text-sm text-mist-200 transition-colors duration-200 hover:border-accent hover:text-accent sm:inline-block"
-            >
-              Résumé
-            </a>
-
+          <div className="flex flex-1 items-center justify-end">
             {/* Hamburger */}
             <button
               type="button"
@@ -193,22 +187,6 @@ export function Nav() {
                   </a>
                 </motion.li>
               ))}
-
-              <motion.li
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.46, duration: 0.4 }}
-                className="mt-8 w-full"
-              >
-                <a
-                  href={site.resumeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block rounded-full bg-accent px-6 py-3 font-medium text-ink-950"
-                >
-                  Download résumé
-                </a>
-              </motion.li>
             </ul>
           </motion.div>
         )}

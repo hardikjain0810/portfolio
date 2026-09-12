@@ -24,8 +24,9 @@ export function Section({
   return (
     <section
       id={id}
-      // scroll-mt keeps the heading clear of the fixed navbar on anchor jumps
-      className={`scroll-mt-24 px-5 py-20 sm:px-8 md:py-28 ${className}`}
+      // section-anchor (globals.css) sets the top padding and makes nav jumps
+      // land the title just under the navbar instead of below that padding.
+      className={`section-anchor px-5 pb-20 sm:px-8 md:pb-28 ${className}`}
     >
       <div className="mx-auto w-full max-w-6xl">
         <Reveal className="mb-10 md:mb-14">

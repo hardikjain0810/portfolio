@@ -21,13 +21,13 @@ export const site = {
   email: "hj791983@outlook.com",
   // TODO: add your phone if you want recruiters to call. Leave "" to hide it.
   phone: "+91 939 299 6731",
-  resumeUrl: "/Hardik_Jain_Resume.pdf", // put the PDF in /public with this name
   socials: {
     github: "https://github.com/hardikjain0810",
     linkedin: "https://linkedin.com/in/hardikjain0810",
   },
-  // Used for SEO, link previews, and the sitemap. Must match the live URL
-  // exactly, or search engines are told to index a page that doesn't exist.
+  // Used for SEO, link previews, the sitemap, AND analytics. Must match the
+  // live URL exactly: search engines index it, and Microsoft Clarity only
+  // records visits on this domain. If you add a custom domain, change it here.
   url: "https://hardik-jain-ai-engineer.vercel.app",
   tagline:
     "I build AI systems that reach production, not prototypes that stall in a notebook.",

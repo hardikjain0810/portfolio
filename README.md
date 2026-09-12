@@ -29,7 +29,6 @@ Other things to add:
 
 | What | Where |
 | --- | --- |
-| Your résumé PDF | Save it as `public/Hardik_Jain_Resume.pdf` |
 | Your phone number | `site.phone` in `lib/content.ts` (leave `""` to hide it) |
 | Your final domain | `site.url` in `lib/content.ts` |
 
@@ -91,6 +90,21 @@ Data starts arriving within a couple of hours.
 > **built**, not read at runtime, so adding the variable does nothing until you
 > trigger a fresh deploy. And the tag only loads in production, so your own
 > `npm run dev` browsing never shows up in the numbers.
+
+### Only real visitors are recorded
+
+Vercel serves every deploy at your public URL and at a private per-deploy address,
+and its screenshot bot opens those private addresses after each push. Without a
+guard, those bot visits show up in Clarity as HeadlessChrome sessions from the US.
+
+The tag therefore checks, in the visitor's browser, that:
+
+- the page is on the domain set in `site.url` in `lib/content.ts`, or its `www.` variant;
+- the browser is not being controlled by an automation tool;
+- the user agent is not headless Chrome or Lighthouse.
+
+If any check fails, Clarity never loads. **If you move to a custom domain, update
+`site.url`**, otherwise analytics will silently stop recording.
 
 Clarity masks text content in recordings by default, so what visitors type into
 your contact form is not captured. If you expect traffic from the EU or UK, add a
