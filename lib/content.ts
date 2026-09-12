@@ -26,8 +26,9 @@ export const site = {
     github: "https://github.com/hardikjain0810",
     linkedin: "https://linkedin.com/in/hardikjain0810",
   },
-  // Used for SEO, link previews, and the sitemap. Change after you deploy.
-  url: "https://hardikjain.vercel.app", // TODO: your final domain
+  // Used for SEO, link previews, and the sitemap. Must match the live URL
+  // exactly, or search engines are told to index a page that doesn't exist.
+  url: "https://hardik-jain-ai-engineer.vercel.app",
   tagline:
     "I build AI systems that reach production, not prototypes that stall in a notebook.",
 };

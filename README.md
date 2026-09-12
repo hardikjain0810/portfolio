@@ -67,6 +67,37 @@ visitors to email you directly.
 
 ---
 
+## Turn on visitor analytics (optional)
+
+[Microsoft Clarity](https://clarity.microsoft.com) is free and unlimited. It gives you
+heatmaps of where people click, how far down they scroll, and replays of real sessions,
+which is genuinely useful for seeing whether recruiters reach your projects section.
+
+1. Sign in at [clarity.microsoft.com](https://clarity.microsoft.com) with a Microsoft account.
+2. Create a project, set the URL to your live site, and choose **Install manually**.
+3. Copy the project ID out of the snippet it shows you. It is the short string
+   at the end of `clarity.ms/tag/XXXXXXXXXX`, not the whole script.
+4. Add it to `.env.local`, and to Vercel under **Settings → Environment Variables**:
+
+   ```
+   NEXT_PUBLIC_CLARITY_ID=your_project_id
+   ```
+
+5. Redeploy.
+
+Data starts arriving within a couple of hours.
+
+> **Two things to know.** `NEXT_PUBLIC_` variables are baked in when the site is
+> **built**, not read at runtime, so adding the variable does nothing until you
+> trigger a fresh deploy. And the tag only loads in production, so your own
+> `npm run dev` browsing never shows up in the numbers.
+
+Clarity masks text content in recordings by default, so what visitors type into
+your contact form is not captured. If you expect traffic from the EU or UK, add a
+short privacy note to the page saying you use Clarity for analytics.
+
+---
+
 ## Deploy to Vercel
 
 1. Push this folder to a **public** GitHub repo.
