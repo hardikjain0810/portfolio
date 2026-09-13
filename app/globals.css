@@ -29,6 +29,7 @@
   --animate-marquee: marquee 38s linear infinite;
   --animate-float: float 7s ease-in-out infinite;
   --animate-caret: caret 1.05s step-end infinite;
+  --animate-typing: typing-dot 1.2s ease-in-out infinite;
 }
 
 @keyframes marquee {
@@ -42,6 +43,22 @@
 @keyframes caret {
   0%, 100% { opacity: 1; }
   50%      { opacity: 0; }
+}
+@keyframes typing-dot {
+  0%, 80%, 100% { opacity: 0.3; transform: translateY(0); }
+  40%           { opacity: 1;   transform: translateY(-3px); }
+}
+
+/* Height of the chat window on laptops: tall, but never taller than the
+   space between the navbar and the launcher button. */
+@utility chat-panel-h {
+  height: min(720px, calc(100dvh - var(--nav-h) - 132px));
+}
+
+/* Horizontal chip rows that scroll without showing a scrollbar. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
 }
 
 /* ============================================================

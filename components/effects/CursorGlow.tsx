@@ -1,23 +1,8 @@
 "use client";
 
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect } from "react";
 import { motion, useMotionValue, useSpring, useReducedMotion } from "motion/react";
-
-/**
- * Subscribes to a media query the React way, so there is no setState inside an
- * effect and no mismatch between the server and the first client render.
- */
-function useMediaQuery(query: string): boolean {
-  return useSyncExternalStore(
-    (onChange) => {
-      const list = window.matchMedia(query);
-      list.addEventListener("change", onChange);
-      return () => list.removeEventListener("change", onChange);
-    },
-    () => window.matchMedia(query).matches,
-    () => false, // the server has no pointer, so assume touch
-  );
-}
+import { useMediaQuery } from "@/lib/useMediaQuery";
 
 /**
  * A soft light that trails the cursor, giving the dark page some depth.

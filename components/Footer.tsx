@@ -49,7 +49,7 @@ export function Footer() {
 
       <div className="mx-auto mt-10 max-w-6xl border-t border-ink-800 pt-6">
         <p className="font-mono text-xs text-mist-400">
-          © {new Date().getFullYear()} {site.name}. Built with Next.js and Tailwind CSS.
+          © {new Date().getFullYear()} {site.name}.
         </p>
       </div>
     </footer>

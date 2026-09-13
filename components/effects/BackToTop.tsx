@@ -26,7 +26,8 @@ export function BackToTop() {
           transition={{ duration: 0.22 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           aria-label="Back to top"
-          className="fixed right-5 bottom-5 z-50 grid h-11 w-11 place-items-center rounded-full border border-ink-700 bg-ink-900/90 text-mist-200 backdrop-blur transition-colors hover:border-accent hover:text-accent sm:right-8 sm:bottom-8"
+          // Sits directly above the chat launcher, centred on its round button.
+          className="fixed right-6 bottom-[5.25rem] z-30 grid h-11 w-11 place-items-center rounded-full border border-ink-700 bg-ink-900/90 text-mist-200 backdrop-blur transition-colors hover:border-accent hover:text-accent sm:right-9 sm:bottom-[6.5rem]"
         >
           <ArrowUpIcon className="h-[18px] w-[18px]" />
         </motion.button>

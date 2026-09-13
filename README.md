@@ -112,6 +112,76 @@ short privacy note to the page saying you use Clarity for analytics.
 
 ---
 
+## Turn on the chatbot
+
+The "AI version of Hardik" chat in the bottom-right corner answers visitors'
+questions **only from `lib/content.ts`**. It runs on free AI APIs.
+
+### Get the keys (free, no card)
+
+1. **Groq:** sign in at [console.groq.com](https://console.groq.com), open **API Keys**,
+   create one, and add it as `GROQ_API_KEY`.
+2. **Gemini (optional backup):** create a key at [aistudio.google.com](https://aistudio.google.com)
+   in a Google Cloud project **with billing disabled**, and add it as `GEMINI_API_KEY`.
+   Google may use free-tier prompts to improve its products; leave it blank to skip Gemini.
+3. Put both in `.env.local` for local runs, and in Vercel under
+   **Settings → Environment Variables**. Then redeploy.
+
+> **Never attach a payment method to these accounts.** On free plans, heavy traffic
+> can only use up the free allowance, after which the bot falls back to plain text
+> from your site. It can never create a bill.
+
+### How it keeps token use low
+
+Every message stops at the first step that can answer it:
+
+| Step | Handles | AI call |
+| --- | --- | --- |
+| Small talk | hi, thanks, ok, bye, lol, emoji, "who are you" | none, answered in the browser |
+| Instant answers | email, current role, skills, projects, education, "do you know X?" | none |
+| Privacy | phone number, salary, visa, résumé | none, always a fixed reply |
+| Off-topic | "capital of France", "write me a poem" | none |
+| Cache | the same first question asked again within 6 hours | none |
+| AI answer | everything else, with only the relevant parts of your content | about 900 input tokens |
+| Fallback | every provider busy or down | none, plain text from your site |
+
+The AI providers are tried in order: Groq `openai/gpt-oss-120b`, then Groq
+`openai/gpt-oss-20b`, then Gemini `gemini-3.5-flash-lite`. A provider that is rate
+limited, erroring, or silent for 6 seconds is skipped.
+
+### Editing what it says
+
+- **Facts** come from the rest of `lib/content.ts`, so fixing your content fixes the bot.
+- **Wording** (welcome line, suggestion chips, small-talk replies, privacy replies) lives
+  in the `chat` block at the bottom of `lib/content.ts`.
+- Your **phone number is never given to the bot**, and any phone number or unknown email
+  address in an AI reply is removed before it reaches the visitor.
+
+### Testing it
+
+```bash
+npm run test:chat
+```
+
+That runs the no-AI layers: small talk, instant answers, privacy, retrieval, and redaction.
+
+To check the AI answers for accuracy, build and start the site with your real keys in
+`.env.local` and a relaxed limit, then run the grounding eval in a second terminal.
+In PowerShell:
+
+```powershell
+$env:CHAT_RATE_LIMIT_PER_10MIN=1000; $env:CHAT_RATE_LIMIT_PER_DAY=5000; npm run build; npm start
+```
+
+```bash
+npm run eval:chat
+```
+
+It asks about 40 questions (facts, unknowns, off-topic, prompt injection, phone-number
+extraction) and fails if any privacy or injection check fails or fewer than 90% pass.
+
+---
+
 ## Deploy to Vercel
 
 1. Push this folder to a **public** GitHub repo.
@@ -133,12 +203,19 @@ app/
   page.tsx             composes the sections in order
   globals.css          design tokens — change colours here
   api/contact/route.ts contact form handler
+  api/chat/route.ts    chatbot handler (streams answers)
 components/
   Nav, Hero, About, Skills, Experience, Projects, Contact, Footer
+  chat/                ChatWidget (launcher), ChatPanel (chat window), useChat
   ui/                  Section, Reveal, Icons
   effects/             CursorGlow, ScrollProgress, BackToTop
 lib/
-  content.ts           ← all your text and data
+  content.ts           ← all your text and data, including chatbot wording
+  chat/                small talk, instant answers, retrieval, prompt, providers, guards
+  rate-limit.ts        shared per-visitor limits
+scripts/
+  chat.test.mts        unit tests for the no-AI layers
+  chat-eval.mjs        accuracy eval against a running site
 ```
 
 ## Changing the colours

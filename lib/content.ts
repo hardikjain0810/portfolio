@@ -253,3 +253,102 @@ export const contact = {
   blurb:
     "I'm open to AI and ML engineering roles, and always happy to talk about interesting problems. Send a message and I'll reply within a day.",
 };
+
+/* ---------------------------------------------------------------------------
+ * CHATBOT — the "AI version of Hardik" chat in the bottom-right corner.
+ *
+ * The bot answers ONLY from the content above. Everything below is wording
+ * you can edit freely. In the replies, {email}, {linkedin}, {github},
+ * {location} and {openTo} are filled in from the content above.
+ *
+ * Your phone number (site.phone) is never given to the bot.
+ * -------------------------------------------------------------------------*/
+export const chat = {
+  launcher: "Ask AI Hardik",
+  name: "Hardik Jain",
+  label: "AI version of Hardik",
+  welcome:
+    "Hi, I'm the AI version of Hardik. Ask me about my work, projects, skills, or how to reach me.",
+  placeholder: "Ask about my work",
+  peek: "Hi! I'm Hardik's AI version. Ask me anything about my work.",
+  // Tapping these costs no AI tokens: each one has a ready-made answer.
+  suggestions: [
+    "What do you do currently?",
+    "Show me your projects",
+    "What's your tech stack?",
+    "Are you open to new roles?",
+  ],
+
+  // Replies to small talk. Answered instantly, never sent to an AI model.
+  // One is picked at random, so a visitor who says "hi" twice sees variety.
+  smalltalk: {
+    greeting: [
+      "Hi! I'm the AI version of Hardik. Ask me about my projects, experience, or skills.",
+      "Hey there. Happy to tell you about my work. What would you like to know?",
+      "Hello! Want to hear what I'm working on right now, or see my projects?",
+    ],
+    howareyou: [
+      "Doing well, thanks for asking! Want to hear about what I'm working on right now?",
+      "All good here. Ask me anything about my work or projects.",
+    ],
+    thanks: [
+      "You're welcome! Anything else you'd like to know?",
+      "Happy to help. Ask away if something else comes up.",
+      "Anytime. Want to see my projects next?",
+    ],
+    bye: [
+      "Thanks for stopping by! If you'd like to talk, the contact form below reaches me directly.",
+      "Bye for now. Hope to hear from you soon.",
+    ],
+    ack: [
+      "Got it. Want to know about my current role or my projects?",
+      "Sure. What else would you like to know?",
+      "Okay! Ask me about my skills, experience, or how to reach me.",
+    ],
+    laugh: [
+      "Glad that made you smile. Anything you'd like to know about my work?",
+      "Ha. Ask me anything about my projects or experience.",
+    ],
+    compliment: [
+      "Thank you, that means a lot! Want to see the project I'm proudest of?",
+      "Really appreciate that. Ask me anything about my work.",
+    ],
+    identity: [
+      "I'm an AI version of Hardik Jain, and I only know what's on this site. For anything beyond it, the contact form reaches the real me.",
+      "I'm Hardik's AI version. I answer from the content on this site, so I won't guess beyond it.",
+    ],
+    help: [
+      "You can ask me about my current role, projects, tech stack, education, certifications, or how to contact me. Try a suggestion below.",
+    ],
+    empty: ["Ask me anything about my work, projects, or skills."],
+  },
+
+  replies: {
+    phone:
+      "I don't share my phone number here. You can email me at {email} or message me on LinkedIn ({linkedin}), and I'll get back to you within a day.",
+    personal:
+      "I haven't put that on my site. The contact form below is the best way to ask me directly.",
+    resume:
+      "My résumé isn't published on this site. Email me at {email} and I'll send it over.",
+    email:
+      "You can email me at {email}. There's also a contact form at the bottom of this page.",
+    linkedin: "Here's my LinkedIn: {linkedin}",
+    github: "My code is on GitHub: {github}",
+    contact:
+      "The fastest ways to reach me are email ({email}) and LinkedIn ({linkedin}). You can also use the contact form at the bottom of this page.",
+    location: "I'm based in {location}.",
+    availability:
+      "Yes! I'm open to {openTo}. The best way to start a conversation is the contact form below, or email me at {email}.",
+    unknown:
+      "I haven't put that on my site yet. The contact form below is the best way to ask me directly.",
+    offTopic:
+      "I'm only here to talk about my work. Try asking about my projects, experience, or skills.",
+    rateLimited:
+      "You're sending messages faster than I can keep up. Give it a few minutes, or reach me through the contact form.",
+    degraded: "My AI side is taking a short break, but here's what my site says:",
+    unavailable:
+      "I can't answer that right now. Try again in a minute, or use the contact form to reach me directly.",
+    error:
+      "Something went wrong on my end. Try again, or use the contact form below.",
+  },
+};

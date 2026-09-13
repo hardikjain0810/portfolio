@@ -9,6 +9,7 @@ import { Footer } from "@/components/Footer";
 import { CursorGlow } from "@/components/effects/CursorGlow";
 import { ScrollProgress } from "@/components/effects/ScrollProgress";
 import { BackToTop } from "@/components/effects/BackToTop";
+import { ChatWidget } from "@/components/chat/ChatWidget";
 
 export default function Home() {
   return (
@@ -29,6 +30,7 @@ export default function Home() {
 
       <Footer />
       <BackToTop />
+      <ChatWidget />
     </>
   );
 }
